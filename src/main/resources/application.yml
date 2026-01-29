@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: payment-gateway-routing-service
+
+logging:
+  level:
+    root: INFO
+    com.payment.gateway: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+payment:
+  gateway:
+    # Gateway weight distribution (should sum to 100)
+    weights:
+      razorpay: 40
+      payu: 35
+      cashfree: 25
+    # Health monitoring configuration
+    health:
+      success-threshold: 90.0  # Minimum success rate percentage
+      time-window-minutes: 15   # Time window for calculating success rate
+      cooldown-minutes: 30      # Cooldown period for unhealthy gateways
